@@ -1,5 +1,5 @@
 #!/bin/bash
-cat ./case_sample
+#cat ./case_sample
 echo "Введите вашу оценку:"
 read x
 case $x in
