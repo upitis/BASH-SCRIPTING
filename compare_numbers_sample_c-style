@@ -1,16 +1,6 @@
 #!/bin/bash
 echo "ПРОВЕРКА УСЛОВИЙ"
 echo "(( УСЛОВИЕ ))"
-echo "ОБЯЗАТЕЛЬНО ПРОБЕЛЫ!"
-echo
-echo "ПРИМЕРЫ ДЛЯ ЧИСЕЛ"
-echo
-echo "x == y	 x равно y,"
-echo "x -ne y	 x неравно y,"
-echo "x -gt y	 x больше y,"
-echo "x -ge y	 x больше или равно y,"
-echo "x -lt y	 x меньше y,"
-echo "x -le y	 x меньше или равно y."
 echo 
 echo "0 - true; 1 - false"
 echo 
