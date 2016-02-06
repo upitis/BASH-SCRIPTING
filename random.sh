@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RANDOM=1
+RANDOM=1 #иницилизации переменной
 ARGS=1
 MAX=6
 
