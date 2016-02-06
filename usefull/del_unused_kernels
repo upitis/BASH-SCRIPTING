@@ -1,0 +1,42 @@
+#! /bin/bash
+echo $@
+
+function cnc {
+ l=${1#*linux}
+ l=${l%-generic*}
+ l=linux$l-generic
+}
+
+fln="linux-image"
+
+cur_img=`uname -sr`
+cur_img=${cur_img%%-generic}
+cur_img=${cur_img##Linux }
+echo $cur_img
+
+
+
+dpkg -l | grep $fln |
+
+(
+while read line
+do
+	cnc "$line"
+	n1=${#l}
+	m=${l%%$cur_img*}
+	mm=${l##linux-image-generic}
+	n3=${#mm}
+	n2=${#m}
+	if [ "$n1" -eq "$n2" ]; then
+	if [ "$n1" -eq "$n3" ]; then
+		suml="$suml $l"
+	fi
+	fi
+
+done 
+
+apt-get purge -f "$suml"
+update-grub
+)
+
+
