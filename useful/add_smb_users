@@ -1,0 +1,51 @@
+#!/bin/bash
+
+function pwdgen {
+ #генератор паролей
+ x=`tr -cd [:alnum:] < /dev/urandom | head -c8`
+ pass=${x:0:4}-${x:4:4}
+# echo $pass
+}
+
+echo Введите название группы:
+read groupname
+echo Создавать домашние папки пользователей?
+OPTIONS="Yes No"
+select opt in $OPTIONS; do
+               if [ "$opt" = "Yes" ]; then
+                echo Домашние папки пользователей будут созданы
+                homedir=1
+               elif [ "$opt" = "No" ]; then
+                echo Без домашних папок
+		homedir=0
+               else
+                clear
+                echo bad option
+               fi
+break
+done
+
+adding=1
+while [ $adding -eq 1 ]; do
+ echo Введите имя пользователя или q для завершения:
+ read username
+ if [ "$username" = "q" ]; then 
+	adding=0
+	exit
+ fi
+ pwdgen #результат заносится в pass
+ if [ $homedir -eq 1 ]; then
+ 	useradd -m -G $groupname -p $pass $username
+ else
+	useradd -G $groupname -p $pass $username 
+ echo "Пароль:$pass"
+ fi
+ printf "$pass\n$pass\n"|smbpasswd -s -a "$username"	 
+ date +%D" "%T>>smbusers
+ echo "$username  $pass  $groupname" >>smbusers	
+
+ mkdir "/data/public/$username"
+ chown "$username:$groupname" "/data/public/$username"
+done 
+
+
